@@ -15,45 +15,46 @@ To write a program to predict the marks scored by a student using the simple lin
 
 ## Program:
 ```
-*/
-Program to implement the simple linear regression model for predicting the marks scored.
-Developed by: A.VIMAL
-RegisterNumber: 212224240183
-*/
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.metrics import mean_absolute_error, mean_squared_error,r2_score
+df = pd.read_csv("student_scores.csv")
+df.head(10)
+plt.scatter(df['Hours'],df['Scores'])
+plt.xlabel('Hours')
+plt.ylabel('Scores')
+x = df.iloc[:,0:1]
+y = df.iloc[:,-1]
+y
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test = train_test_split(x,y,test_size=0.2,random_state=0)
 from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(X_train,Y_train)
+X_train
+Y_train
+lr.predict(X_test.iloc[0].values.reshape(1,1))
+plt.scatter(df['Hours'],df["Scores"])
+plt.xlabel('Hours')
+plt.ylabel('Scores')
+plt.plot(X_train,lr.predict(X_train),color='red')
+lr.coef_
+lr.intercept_
+y_pred = lr.predict(X_test)
+mse = mean_squared_error(Y_test,y_pred)
+rmse = np.sqrt(mse)
+mae = mean_absolute_error(Y_test,y_pred)
+r2 = r2_score(Y_test,y_pred)
+print("MSE:",mse)
+print("RMSE:",rmse)
+print("MAE:",mae)
+print("R2:",r2)
 
-X = np.array([1, 2, 3, 4, 5]).reshape(-1, 1)
-Y = np.array([35, 50, 65, 70, 85])
-
-model = LinearRegression()
-
-model.fit(X, Y)
-
-m = model.coef_[0]
-b = model.intercept_
-
-print("Slope (m):", m)
-print("Intercept (b):", b)
-
-x_input = float(input("Enter hours studied: "))
-predicted_marks = model.predict([[x_input]])
-print("Predicted Marks:", predicted_marks[0])
-
-Y_pred = model.predict(X)
-
-plt.scatter(X, Y, label="Actual Data")
-plt.plot(X, Y_pred, label="Regression Line")
-plt.xlabel("Hours Studied")
-plt.ylabel("Marks Scored")
-plt.title("Simple Linear Regression (Using sklearn)")
-plt.legend()
-plt.show()
 ```
 
 ## Output:
-<img width="803" height="678" alt="image" src="https://github.com/user-attachments/assets/478e589f-6c82-44d6-b0f7-b0aabec64c01" />
+<img width="1271" height="725" alt="WhatsApp Image 2026-05-12 at 9 48 56 AM" src="https://github.com/user-attachments/assets/17c17f51-4358-4b3f-bf24-df6c3a3c9cbd" />
 
 
 
